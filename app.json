@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "SEEFA",
+    "slug": "seefa",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1E1B26"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.seefa.keymanager",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "SEEFA uses Face ID or Touch ID to secure your data and provide quick access."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1E1B26"
+      },
+      "package": "com.seefa.keymanager",
+      "permissions": [
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "SEEFA uses Face ID or Touch ID to secure your data and provide quick access."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c60efe8c-f56b-4eb8-bd35-12774cb12914"
+      }
+    },
+    "owner": "harbidec"
+  }
+}
