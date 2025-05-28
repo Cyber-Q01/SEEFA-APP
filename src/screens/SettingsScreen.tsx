@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Alert, Platform, Linking } from 'react-native';
 // Fix: Removed 'Theme' from import as it's not an exported member of 'react-native-paper' in MD3. AppThemeType is used instead.
 import { List, Switch, Button, useTheme, Text, Divider, TextInput, ActivityIndicator, Dialog, Portal } from 'react-native-paper';
@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import Constants from 'expo-constants';
 
 // Fix: useAppContext will be exported from AppDataContext.tsx
-import { useAppContext } from '../contexts/AppDataContext';
+import { useAppData } from '../contexts/AppDataContext';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { APP_NAME } from '../config/constants';
 import { AppThemeType } from '../config/theme'; // Import AppThemeType
@@ -51,14 +51,18 @@ const SettingsScreen: React.FC = () => {
   const { 
     lockApp, 
     isBiometricsSupported, 
-    isBiometricsEnabled, 
+    isBiometricsEnabled,
     toggleBiometrics,
     isAppLocked, // To prevent actions if app gets locked while in settings
-  } = useAppContext();
+    changeMasterPassword,
+  } = useAppData();
   
   const [isToggleLoading, setIsToggleLoading] = useState(false);
   const [masterPasswordForBiometrics, setMasterPasswordForBiometrics] = useState('');
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [showChangePasswordDialog, setShowChangePasswordDialog] = useState(false);
+  const [currentMasterPassword, setCurrentMasterPassword] = useState('');
+  const [newMasterPassword, setNewMasterPassword] = useState('');
 
   const handleToggleBiometricsSwitch = async (enable: boolean) => {
     if (isAppLocked) {
@@ -96,12 +100,14 @@ const SettingsScreen: React.FC = () => {
     }
   };
 
-
   const handleChangeMasterPassword = () => {
-    if (isAppLocked) { Alert.alert("App Locked", "Please unlock the app to change settings."); return; }
-    Alert.alert("Feature Not Implemented", "Changing master password requires careful re-encryption of all data. This feature is planned for a future update.");
+    if (isAppLocked) {
+      Alert.alert("App Locked", "Please unlock the app to change settings.");
+      return;
+    }
+    setShowChangePasswordDialog(true);
   };
-  
+
   const handleLockApp = () => {
     lockApp();
     // Navigation to AppLock screen is handled by AppNavigator based on isAppLocked state
@@ -180,7 +186,7 @@ const SettingsScreen: React.FC = () => {
           title="Import Data"
           description="Securely import entries from a backup"
           // Fix: Color property will be valid after theme.ts fixes.
-          left={props => <List.Icon {...props} icon="import-variant" color={theme.colors.onSurfaceVariant}/>}
+          left={props => <List.Icon {...props} icon="import" color={theme.colors.onSurfaceVariant}/>}
           onPress={() => Alert.alert("Feature Not Implemented", "Secure data import is planned for a future update.")}
           disabled={isAppLocked}
           // Fix: Color property will be valid after theme.ts fixes.
@@ -273,6 +279,51 @@ const SettingsScreen: React.FC = () => {
             {/* Fix: Color properties will be valid after theme.ts fixes. */}
             <Button onPress={() => { setShowPasswordDialog(false); setMasterPasswordForBiometrics(''); }} textColor={theme.colors.onSurfaceVariant} disabled={isToggleLoading}>Cancel</Button>
             <Button onPress={confirmEnableBiometrics} loading={isToggleLoading} disabled={!masterPasswordForBiometrics || isToggleLoading} textColor={theme.colors.primary}>Confirm & Enable</Button>
+          </Dialog.Actions>
+        </Dialog>
+
+        <Dialog visible={showChangePasswordDialog} onDismiss={() => { setShowChangePasswordDialog(false); setCurrentMasterPassword(''); setNewMasterPassword(''); }}>
+          {/* Fix: Color property will be valid after theme.ts fixes. */}
+          <Dialog.Title style={{color: theme.colors.onSurface}}>Change Master Password</Dialog.Title>
+          <Dialog.Content>
+            {/* Fix: Color property will be valid after theme.ts fixes. */}
+            <Text style={{color: theme.colors.onSurfaceVariant, marginBottom:10}}>Please enter your current and new master passwords.</Text>
+            <TextInput
+              label="Current Master Password"
+              value={currentMasterPassword}
+              onChangeText={setCurrentMasterPassword}
+              secureTextEntry
+              mode="outlined"
+              // Fix: Color property will be valid after theme.ts fixes.
+              style={{backgroundColor: theme.colors.surface}}
+              autoFocus
+              disabled={isToggleLoading}
+            />
+            <TextInput
+              label="New Master Password"
+              value={newMasterPassword}
+              onChangeText={setNewMasterPassword}
+              secureTextEntry
+              mode="outlined"
+              // Fix: Color property will be valid after theme.ts fixes.
+              style={{backgroundColor: theme.colors.surface, marginTop: 10}}
+              disabled={isToggleLoading}
+            />
+          </Dialog.Content>
+          <Dialog.Actions>
+            {/* Fix: Color properties will be valid after theme.ts fixes. */}
+            <Button onPress={() => { setShowChangePasswordDialog(false); setCurrentMasterPassword(''); setNewMasterPassword(''); }} textColor={theme.colors.onSurfaceVariant} disabled={isToggleLoading}>Cancel</Button>
+            <Button onPress={async () => {
+              if (!currentMasterPassword || !newMasterPassword) return;
+              setIsToggleLoading(true);
+              const success = await changeMasterPassword(currentMasterPassword, newMasterPassword);
+              setIsToggleLoading(false);
+              if (success) {
+                setShowChangePasswordDialog(false);
+                setCurrentMasterPassword('');
+                setNewMasterPassword('');
+              }
+            }} loading={isToggleLoading} disabled={!currentMasterPassword || !newMasterPassword || isToggleLoading} textColor={theme.colors.primary}>Confirm & Change</Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>

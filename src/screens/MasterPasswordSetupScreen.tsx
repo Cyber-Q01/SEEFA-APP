@@ -5,7 +5,7 @@ import { TextInput } from 'react-native-paper';
 // Fix: Removed 'Theme' from import as it's not an exported member of 'react-native-paper' in MD3. AppThemeType is used instead.
 import { Button, Text, useTheme, HelperText, ActivityIndicator, ProgressBar } from 'react-native-paper';
 // Fix: useAppContext will be exported from AppDataContext.tsx
-import { useAppContext } from '../contexts/AppDataContext';
+import { useAppData } from '../contexts/AppDataContext';
 import { APP_NAME } from '../config/constants';
 import { AppThemeType } from '../config/theme'; // Import AppThemeType
 
@@ -70,7 +70,7 @@ const makeStyles = (theme: AppThemeType) => StyleSheet.create({
 const MasterPasswordSetupScreen: React.FC = () => {
   const theme = useTheme<AppThemeType>();
   const styles = makeStyles(theme); // Create styles with theme
-  const { setMasterPasswordAndInitialize, isLoading: contextIsLoading } = useAppContext(); // Renamed isLoading to avoid conflict
+  const { setMasterPasswordAndInitialize, isLoading: contextIsLoading } = useAppData(); // Renamed isLoading to avoid conflict
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState<string | null>(null);

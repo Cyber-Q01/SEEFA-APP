@@ -10,10 +10,5 @@ export const STORAGE_MASTER_KEY_SALT_ALIAS = 'seefa_master_key_salt_v1';
 export const STORAGE_BIOMETRICS_ENABLED_KEY = 'seefa_biometrics_enabled_v1';
 
 
-// Paystack
-// This is a TEST key. For LIVE transactions, replace with your Paystack LIVE Public Key.
-export const PAYSTACK_PUBLIC_KEY = 'pk_test_87aff6c51dc922cb2cd43382d29de1c91531242c';
-export const PAYMENT_AMOUNT_KOBO = 480000; // ₦4800 in kobo (4800 * 100)
-export const PAYMENT_CURRENCY = 'NGN';
 
 export const APP_NAME = "SEEFA";

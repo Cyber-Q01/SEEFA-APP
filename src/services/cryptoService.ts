@@ -86,18 +86,15 @@ export async function decryptData<T>(encryptedBase64Data: string, masterKeyHex: 
   }
 
   const key = CryptoJS.enc.Hex.parse(masterKeyHex);
-  
-  // Convert base64 data back to hex
-  const combinedHex = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Base64.parse(encryptedBase64Data));
-
-  // Extract IV and ciphertext
-  const ivHex = combinedHex.substring(0, IV_LENGTH_BYTES * 2);
-  const ciphertextHex = combinedHex.substring(IV_LENGTH_BYTES * 2);
-
-  const iv = CryptoJS.enc.Hex.parse(ivHex);
-  const ciphertext = CryptoJS.enc.Hex.parse(ciphertextHex);
 
   try {
+    // Parse base64 data directly to WordArray (optimization - does not affect security)
+    const encryptedWordArray = CryptoJS.enc.Base64.parse(encryptedBase64Data);
+
+    // Extract IV and ciphertext as WordArray objects
+    const iv = CryptoJS.lib.WordArray.create(encryptedWordArray.words.slice(0, IV_LENGTH_BYTES / 4));
+    const ciphertext = CryptoJS.lib.WordArray.create(encryptedWordArray.words.slice(IV_LENGTH_BYTES / 4));
+
     const decrypted = CryptoJS.AES.decrypt({ ciphertext: ciphertext } as CryptoJS.lib.CipherParams, key, {
       iv: iv,
       mode: CryptoJS.mode.CBC,

@@ -1,4 +1,4 @@
-import { MD3LightTheme, configureFonts } from 'react-native-paper';
+import { MD3LightTheme, configureFonts, MD3Theme } from 'react-native-paper';
 import { Platform } from 'react-native';
 
 // Define a base font style that includes all required MD3 properties
@@ -48,10 +48,11 @@ const fontConfig = {
   thin: { ...baseFont, fontFamily: Platform.select({ ios: 'System', android: 'sans-serif-thin' }), fontWeight: '100' as FontWeight },
 };
 
-export const appTheme = {
+export const appTheme: MD3Theme = {
   ...MD3LightTheme,
   roundness: 12,
   version: 3,
+  isV3: true,
   colors: {
     primary: '#8B5CF6',
     onPrimary: '#FFFFFF',
@@ -83,18 +84,33 @@ export const appTheme = {
     surfaceDisabled: 'rgba(230, 225, 229, 0.12)',
     onSurfaceDisabled: 'rgba(230, 225, 229, 0.38)',
     backdrop: 'rgba(30, 27, 38, 0.4)',
-    brandPurple: '#8B5CF6',
-    brandLavender: '#C4B5FD',
-    brandDarkPurple: '#5B21B6',
-    gradientCardDefault: ['#A855F7', '#6366F1'],
-    gradientPasswordCard: ['#C4B5FD', '#8B5CF6'],
-    gradientWeb3KeyCard: ['#8B5CF6', '#5B21B6'],
+    outlineVariant: '#4A4458',
+    scrim: '#000000',
     elevation: {
+      level0: 'transparent',
+      level1: '#2C2838',
       level2: '#3B3549',
-      level3: '#4A4458', // Define a color for elevation level 3
+      level3: '#4A4458',
+      level4: '#595367',
+      level5: '#686276',
     },
   },
   fonts: configureFonts({config: fontConfig, isV3: true}),
 };
 
-export type AppThemeType = typeof appTheme;
+type AppThemeColors = MD3Theme['colors'] & {
+  brandPurple: string;
+  brandLavender: string;
+  brandDarkPurple: string;
+  gradientCardDefault: string[];
+  gradientPasswordCard: string[];
+  gradientWeb3KeyCard: string[];
+  elevation: {
+    level2: string;
+    level3: string;
+  };
+};
+
+export interface AppThemeType extends MD3Theme {
+  colors: AppThemeColors;
+}

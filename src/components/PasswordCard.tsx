@@ -6,11 +6,20 @@ import * as Clipboard from 'expo-clipboard';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
+import { ColorValue } from 'react-native';
+
+const ensureColorTuple = (colors: string[]): [ColorValue, ColorValue, ...ColorValue[]] => {
+  if (colors.length < 2) {
+    // Provide default colors if the array has less than 2 elements
+    return ['#000', '#000'];
+  }
+  return [colors[0], colors[1], ...colors.slice(2)];
+};
 
 // Fix: useAppContext will be exported from AppDataContext.tsx
 import { PasswordEntry, EntryType } from '../types';
 // Fix: useAppContext will be exported from AppDataContext.tsx
-import { useAppContext } from '../contexts/AppDataContext';
+import { useAppData } from '../contexts/AppDataContext';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { AppThemeType } from '../config/theme'; // Import AppThemeType
 
@@ -22,7 +31,7 @@ type NavigationProp = StackNavigationProp<RootStackParamList>;
 const PasswordCard: React.FC<PasswordCardProps> = ({ entry }) => {
   const theme = useTheme<AppThemeType>();
   const navigation = useNavigation<NavigationProp>();
-  const { deleteEntry } = useAppContext();
+  const { deleteEntry } = useAppData();
   const [revealed, setRevealed] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -59,100 +68,102 @@ const PasswordCard: React.FC<PasswordCardProps> = ({ entry }) => {
   };
   
   return (
-     <Card style={styles.cardBase}>
-        <LinearGradient
-            // Fix: Access custom gradient color from strongly typed theme. Color properties will be valid after theme.ts fixes.
-            colors={theme.colors.gradientPasswordCard || [theme.colors.primaryContainer, theme.colors.primary]}
-            style={StyleSheet.absoluteFillObject}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-        />
-       <Card.Content style={styles.cardContent}>
-        <View style={styles.headerRow}>
-            <View style={styles.titleContainer}>
-                {/* Fix: Color property will be valid after theme.ts fixes. */}
-                <IconButton icon="shield-lock-outline" size={24} iconColor={theme.colors.onPrimary} style={styles.cardIcon}/>
-                <Text variant="titleLarge" style={[styles.appName, {color: theme.colors.onPrimary}]} numberOfLines={1}>
-                    {entry.appName}
-                </Text>
-            </View>
-            <Menu
-                visible={menuVisible}
-                onDismiss={() => setMenuVisible(false)}
-                anchor={
-                    <IconButton 
-                        icon="dots-vertical" 
-                        size={24} 
-                        onPress={() => setMenuVisible(true)} 
+     <View style={{overflow: 'hidden'}}>
+        <Card style={styles.cardBase}>
+            <LinearGradient
+                // Fix: Access custom gradient color from strongly typed theme. Color properties will be valid after theme.ts fixes.
+                colors={ensureColorTuple(theme.colors.gradientPasswordCard || [theme.colors.primaryContainer, theme.colors.primary])}
+                style={StyleSheet.absoluteFillObject}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+            />
+           <Card.Content style={styles.cardContent}>
+            <View style={styles.headerRow}>
+                <View style={styles.titleContainer}>
+                    {/* Fix: Color property will be valid after theme.ts fixes. */}
+                    <IconButton icon="shield-lock-outline" size={24} iconColor={theme.colors.onPrimary} style={styles.cardIcon}/>
+                    <Text variant="titleLarge" style={[styles.appName, {color: theme.colors.onPrimary}]} numberOfLines={1}>
+                        {entry.appName}
+                    </Text>
+                </View>
+                <Menu
+                    visible={menuVisible}
+                    onDismiss={() => setMenuVisible(false)}
+                    anchor={
+                        <IconButton 
+                            icon="dots-vertical" 
+                            size={24} 
+                            onPress={() => setMenuVisible(true)} 
+                            // Fix: Color property will be valid after theme.ts fixes.
+                            iconColor={theme.colors.onPrimary} 
+                            style={styles.menuAnchor}
+                        />
+                    }
+                    // Fix: Color property will be valid after theme.ts fixes.
+                    contentStyle={{backgroundColor: theme.colors.elevation.level3}}
+                >
+                    <Menu.Item
+                        onPress={() => { setRevealed(!revealed); setMenuVisible(false); }}
+                        title={revealed ? "Hide Password" : "Reveal Password"}
+                        leadingIcon={revealed ? "eye-off-outline" : "eye-outline"}
                         // Fix: Color property will be valid after theme.ts fixes.
-                        iconColor={theme.colors.onPrimary} 
-                        style={styles.menuAnchor}
+                        titleStyle={{color: theme.colors.onSurface}}
                     />
-                }
-                // Fix: Color property will be valid after theme.ts fixes.
-                contentStyle={{backgroundColor: theme.colors.elevation.level3}}
-            >
-                <Menu.Item
-                    onPress={() => { setRevealed(!revealed); setMenuVisible(false); }}
-                    title={revealed ? "Hide Password" : "Reveal Password"}
-                    leadingIcon={revealed ? "eye-off-outline" : "eye-outline"}
-                    // Fix: Color property will be valid after theme.ts fixes.
-                    titleStyle={{color: theme.colors.onSurface}}
-                />
-                <Menu.Item 
-                    onPress={() => { navigation.navigate('AddEditEntry', { entryId: entry.id, entryType: EntryType.Password }); setMenuVisible(false); }}
-                    title="Edit Entry" 
-                    leadingIcon="pencil-outline"
-                    // Fix: Color property will be valid after theme.ts fixes.
-                    titleStyle={{color: theme.colors.onSurface}}
-                />
-                <Divider />
-                <Menu.Item 
-                    onPress={handleDelete} 
-                    title="Delete Entry" 
-                    leadingIcon="trash-can-outline" 
-                    // Fix: Color property will be valid after theme.ts fixes.
-                    titleStyle={{color: theme.colors.error}}
-                />
-            </Menu>
-        </View>
-
-        {entry.category && (
-            // Fix: Color property will be valid after theme.ts fixes.
-            <View style={[styles.categoryChip, {backgroundColor: theme.colors.onPrimary+'33'}]}>
-                <Text style={[styles.categoryText, {color: theme.colors.onPrimary}]}>
-                {entry.category}
-                </Text>
+                    <Menu.Item 
+                        onPress={() => { navigation.navigate('AddEditEntry', { entryId: entry.id, entryType: EntryType.Password }); setMenuVisible(false); }}
+                        title="Edit Entry" 
+                        leadingIcon="pencil-outline"
+                        // Fix: Color property will be valid after theme.ts fixes.
+                        titleStyle={{color: theme.colors.onSurface}}
+                    />
+                    <Divider />
+                    <Menu.Item 
+                        onPress={handleDelete} 
+                        title="Delete Entry" 
+                        leadingIcon="trash-can-outline" 
+                        // Fix: Color property will be valid after theme.ts fixes.
+                        titleStyle={{color: theme.colors.error}}
+                    />
+                </Menu>
             </View>
-        )}
-        {/* Fix: Color properties will be valid after theme.ts fixes. */}
-        <InfoRow label="Username" value={entry.username} onCopy={() => handleCopy(entry.username, "Username")} icon="account-circle-outline" textColor={theme.colors.onPrimary} labelColor={theme.colors.onPrimary+'AA'}/>
-        <InfoRow 
-            label="Password" 
-            value={entry.passwordValue} 
-            isSensitive 
-            revealed={revealed} 
-            onCopy={() => handleCopy(entry.passwordValue, "Password")}
-            icon="key-variant"
-            // Fix: Color properties will be valid after theme.ts fixes.
-            textColor={theme.colors.onPrimary} 
-            labelColor={theme.colors.onPrimary+'AA'}
-        />
-        {entry.websiteUrl && (
-            <TouchableOpacity onPress={() => handleOpenUrl(entry.websiteUrl)} onLongPress={() => handleCopy(entry.websiteUrl!, "Website URL")}>
+
+            {entry.category && (
+                // Fix: Color property will be valid after theme.ts fixes.
+                <View style={[styles.categoryChip, {backgroundColor: theme.colors.onPrimary+'33'}]}>
+                    <Text style={[styles.categoryText, {color: theme.colors.onPrimary}]}>
+                    {entry.category}
+                    </Text>
+                </View>
+            )}
+            {/* Fix: Color properties will be valid after theme.ts fixes. */}
+            <InfoRow label="Username" value={entry.username} onCopy={() => handleCopy(entry.username, "Username")} icon="account-circle-outline" textColor={theme.colors.onPrimary} labelColor={theme.colors.onPrimary+'AA'}/>
             <InfoRow 
-                label="Website URL" 
-                value={entry.websiteUrl} 
-                isUrl 
-                icon="web"
+                label="Password" 
+                value={entry.passwordValue} 
+                isSensitive 
+                revealed={revealed} 
+                onCopy={() => handleCopy(entry.passwordValue, "Password")}
+                icon="key-variant"
                 // Fix: Color properties will be valid after theme.ts fixes.
                 textColor={theme.colors.onPrimary} 
                 labelColor={theme.colors.onPrimary+'AA'}
             />
-            </TouchableOpacity>
-        )}
-       </Card.Content>
-     </Card>
+            {entry.websiteUrl && (
+                <TouchableOpacity onPress={() => handleOpenUrl(entry.websiteUrl)} onLongPress={() => handleCopy(entry.websiteUrl!, "Website URL")}>
+                <InfoRow 
+                    label="Website URL" 
+                    value={entry.websiteUrl} 
+                    isUrl 
+                    icon="web"
+                    // Fix: Color properties will be valid after theme.ts fixes.
+                    textColor={theme.colors.onPrimary} 
+                    labelColor={theme.colors.onPrimary+'AA'}
+                />
+                </TouchableOpacity>
+            )}
+           </Card.Content>
+         </Card>
+     </View>
   );
 };
 

@@ -12,23 +12,21 @@ import UpgradeScreen from '../screens/UpgradeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 // Fix: Assuming MasterPasswordSetupScreen has a default export, this import should be fine. The error might be elsewhere.
 import MasterPasswordSetupScreen from '../screens/MasterPasswordSetupScreen'; 
-import AppLockScreen from '../screens/AppLockScreen';
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen'; // Import new screen
 import TermsOfServiceScreen from '../screens/TermsOfServiceScreen'; // Import new screen
 
 
-import { EntryType } from '../types';
+import { EntryType, EntryFormData } from '../types';
 // Fix: useAppContext will be exported from AppDataContext.tsx
-import { useAppContext } from '../contexts/AppDataContext';
+import { useAppData } from '../contexts/AppDataContext';
 import { AppThemeType } from '../config/theme';
 
 export type RootStackParamList = {
   Home: undefined;
-  AddEditEntry: { entryId?: string, entryType?: EntryType };
+  AddEditEntry: { entryId?: string, entryType?: EntryType, formData?: Partial<EntryFormData> };
   Upgrade: undefined;
   Settings: undefined;
   MasterPasswordSetup: undefined;
-  AppLock: undefined;
   Loading: undefined;
   PrivacyPolicy: undefined; // New screen
   TermsOfService: undefined; // New screen
@@ -38,7 +36,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
   const theme = useTheme<AppThemeType>();
-  const { isEncryptionKeySet, isAppLocked, isLoading } = useAppContext();
+  const { isEncryptionKeySet, isAppLocked, isLoading } = useAppData();
 
   if (isLoading) {
      return (
@@ -51,9 +49,7 @@ export default function AppNavigator() {
   let initialRouteName: keyof RootStackParamList;
   if (!isEncryptionKeySet) {
     initialRouteName = "MasterPasswordSetup";
-  } else if (isAppLocked) {
-    initialRouteName = "AppLock";
-  } else {
+  }  else {
     initialRouteName = "Home";
   }
 
@@ -70,9 +66,6 @@ export default function AppNavigator() {
       border: theme.colors.outline, 
       notification: theme.colors.error,
     },
-    // Fix: Added fonts property as the error "Property 'fonts' is missing... but required in type 'NativeTheme'" suggests it's necessary.
-    // This assumes theme.fonts (MD3Fonts) is compatible or will be cast if further issues arise.
-    fonts: theme.fonts as any, // Casting to any to satisfy the requirement if types are incompatible. Should be refined if possible.
   };
 
 
@@ -96,12 +89,6 @@ export default function AppNavigator() {
             name="MasterPasswordSetup"
             component={MasterPasswordSetupScreen}
             options={{ title: 'Setup Security', headerShown: false }}
-          />
-        ) : isAppLocked ? (
-          <Stack.Screen
-            name="AppLock"
-            component={AppLockScreen}
-            options={{ title: 'Unlock SEEFA', headerShown: false }}
           />
         ) : (
           <>

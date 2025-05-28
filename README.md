@@ -33,7 +33,6 @@ SEEFA is a React Native Expo application designed to securely manage your passwo
 *   **Secure Storage:** `expo-secure-store`
 *   **Encryption:** `crypto-js` (AES-256 for data, PBKDF2 for key derivation)
 *   **Biometrics:** `expo-local-authentication`
-*   **Payments:** `react-native-paystack-webview` for Paystack integration
 *   **State Management:** React Context API
 *   **Language:** TypeScript
 
@@ -83,11 +82,12 @@ SEEFA is a React Native Expo application designed to securely manage your passwo
 
 ## Paystack Integration
 
-*   The app uses `react-native-paystack-webview` to handle payments.
+*   The app now uses payment links generated from the Paystack dashboard to handle payments.
+*   To process payments, generate a payment link from your Paystack dashboard and paste it into the `paymentLink` variable in the `src/screens/UpgradeScreen.tsx` file.
 *   **WARNING - LIVE KEY IN USE:** The Paystack public key currently configured in `src/config/constants.ts` is `pk_live_b6a7405c6aa130017c2c4cfea16192702bcff3ae`. **This is a LIVE key.**
     *   **Transactions made with this key will be REAL and will charge actual money.**
     *   For development and testing, it is **STRONGLY RECOMMENDED** to replace this with your **Paystack Test Public Key** from your Paystack dashboard.
-    *   Ensure your Paystack account (live or test) is correctly set up to accept payments, especially if using the live key.
+    *   Ensure your Paystack account (live or test) is correctly set up to accept payments.
 
 ## Project Structure (Based on your provided files)
 

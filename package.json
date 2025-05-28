@@ -4,38 +4,41 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "eslint src/**/*.tsx",
-    "tsc": "node_modules/typescript/bin/tsc"
+    "lint": "eslint src/**/*.tsx"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.4.0",
+    "axios": "^1.9.0",
     "crypto-js": "^4.2.0",
-    "expo": "~51.0.21",
-    "expo-clipboard": "~6.0.3",
-    "expo-constants": "~16.0.2",
-    "expo-linear-gradient": "~13.0.2",
-    "expo-local-authentication": "~14.0.1",
-    "expo-secure-store": "~13.0.2",
-    "expo-status-bar": "~1.12.1",
-    "react": "18.2.0",
-    "react-native": "0.74.3",
-    "react-native-gesture-handler": "~2.16.1",
+    "expo": "^53.0.0",
+    "expo-application": "~6.1.4",
+    "expo-background-fetch": "~13.1.5",
+    "expo-clipboard": "~7.1.4",
+    "expo-constants": "~17.1.6",
+    "expo-linear-gradient": "~14.1.4",
+    "expo-local-authentication": "~16.0.4",
+    "expo-secure-store": "^14.2.3",
+    "expo-status-bar": "~2.2.3",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-native-gesture-handler": "~2.24.0",
     "react-native-get-random-values": "~1.11.0",
-    "react-native-paper": "^5.12.3",
-    "react-native-safe-area-context": "4.10.1",
-    "react-native-webview": "13.8.6"
+    "react-native-paper": "^5.14.5",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-webview": "13.13.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/crypto-js": "^4.2.2",
-    "@types/react": "~18.2.45",
-    "@types/react-native": "^0.72.8",
+    "@types/react": "~19.0.10",
+    "@types/uuid": "^10.0.0",
     "eslint": "^9.27.0",
-    "typescript": "^5.8.3"
+    "typescript": "~5.8.3"
   },
   "private": true
 }

@@ -73,7 +73,10 @@ export interface AppDataContextType {
   checkBiometricsAndUnlock: () => Promise<boolean>;
   isBiometricsSupported: boolean;
   isBiometricsEnabled: boolean;
+  isLocked: boolean;
+  setIsLocked: (isLocked: boolean) => void;
   toggleBiometrics: (enable: boolean, masterPassword?: string) => Promise<boolean>;
+  changeMasterPassword: (currentPassword: string, newPassword: string) => Promise<boolean>;
 }
 
 // For Paystack webview

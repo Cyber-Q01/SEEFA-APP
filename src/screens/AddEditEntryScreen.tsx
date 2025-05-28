@@ -4,28 +4,35 @@ import { View, StyleSheet, ScrollView, Alert, KeyboardAvoidingView, Platform } f
 import { TextInput, Button, useTheme, Text, SegmentedButtons, HelperText, ActivityIndicator, TextInputProps } from 'react-native-paper';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-
+import { AppThemeType } from '../config/theme';
 // Fix: useAppContext will be exported from AppDataContext.tsx
-import { useAppContext } from '../contexts/AppDataContext';
+import { useAppData } from '../contexts/AppDataContext';
 import { EntryType, PasswordFormData, Web3KeyFormData, EntryFormData, UserPlan } from '../types';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { FREE_PLAN_LIMIT } from '../config/constants';
-import { AppThemeType } from '../config/theme';
+interface AddEditEntryRouteParams {
+  entryId?: string;
+  entryType?: EntryType;
+}
+
+
+
 
 type AddEditEntryScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AddEditEntry'>;
 type AddEditEntryScreenRouteProp = RouteProp<RootStackParamList, 'AddEditEntry'>;
 
-const AddEditEntryScreen: React.FC = () => {
+const AddEditEntryScreen: React.FC<{}> = () => {
   const theme = useTheme<AppThemeType>();
   const navigation = useNavigation<AddEditEntryScreenNavigationProp>();
   const route = useRoute<AddEditEntryScreenRouteProp>();
-  const { addEntry, updateEntry, getEntryById, plan, entries, isLoading: contextIsLoading } = useAppContext();
+  const { addEntry, updateEntry, getEntryById, plan, entries, isLoading: contextIsLoading } = useAppData();
 
   const entryId = route.params?.entryId;
   const initialEntryTypeFromNav = route.params?.entryType;
+  const initialFormData = route.params?.formData;
 
   const [currentEntryType, setCurrentEntryType] = useState<EntryType>(initialEntryTypeFromNav || EntryType.Password);
-  const [formData, setFormData] = useState<Partial<EntryFormData>>({});
+  const [formData, setFormData] = useState<Partial<EntryFormData>>(initialFormData || {});
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -169,29 +176,42 @@ const AddEditEntryScreen: React.FC = () => {
           <TextInput
             label="App/Website Name *"
             value={(formData as Partial<PasswordFormData>).appName || ''}
-            onChangeText={value => handleInputChange('appName', value)}
+            onChangeText={(value) => handleInputChange('appName', value)}
             {...commonTextInputProps('appName')}
           />
-          {errors.appName && <HelperText type="error" visible={!!errors.appName}>{errors.appName}</HelperText>}
+          {errors.appName && (
+            <HelperText type="error" visible={!!errors.appName}>
+              {errors.appName}
+            </HelperText>
+          )}
 
           <TextInput
             label="Username/Email *"
             value={(formData as Partial<PasswordFormData>).username || ''}
-            onChangeText={value => handleInputChange('username', value)}
+            onChangeText={(value) => handleInputChange('username', value)}
             autoCapitalize="none"
             keyboardType="email-address"
             {...commonTextInputProps('username')}
           />
-          {errors.username && <HelperText type="error" visible={!!errors.username}>{errors.username}</HelperText>}
+          {errors.username && (
+            <HelperText type="error" visible={!!errors.username}>
+              {errors.username}
+            </HelperText>
+          )}
 
           <TextInput
             label="Password *"
-            value={(formData as Partial<PasswordFormData>).passwordValue || ''}
-            onChangeText={value => handleInputChange('passwordValue', value)}
+            value={(formData as Partial<PasswordFormData>).passwordValue ||
+              ''}
+            onChangeText={(value) => handleInputChange('passwordValue', value)}
             secureTextEntry
             {...commonTextInputProps('passwordValue')}
           />
-          {errors.passwordValue && <HelperText type="error" visible={!!errors.passwordValue}>{errors.passwordValue}</HelperText>}
+          {errors.passwordValue && (
+            <HelperText type="error" visible={!!errors.passwordValue}>
+              {errors.passwordValue}
+            </HelperText>
+          )}
 
           <TextInput
             label="Website URL (Optional)"

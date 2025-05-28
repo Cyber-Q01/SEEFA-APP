@@ -1,0 +1,95 @@
+&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:1150 Crypto object available: object
+&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:1150 Running "main" with {"rootTag":11,"initialProps":{"exp":{"manifestString":"{\"createdAt\":\"2025-05-28T21:57:39.510Z\",\"runtimeVersion\":\"exposdk:53.0.0\",\"extra\":{\"eas\":{\"projectId\":\"c60efe8c-f56b-4eb8-bd35-12774cb12914\"},\"scopeKey\":\"@harbidec\\/seefa\",\"expoClient\":{\"extra\":{\"eas\":{\"projectId\":\"c60efe8c-f56b-4eb8-bd35-12774cb12914\"}},\"orientation\":\"portrait\",\"version\":\"1.0.0\",\"userInterfaceStyle\":\"automatic\",\"_internal\":{\"packageJsonPath\":\"C:\\\\Users\\\\USER\\\\Downloads\\\\SEEFA PROJECT\\\\package.json\",\"projectRoot\":\"C:\\\\Users\\\\USER\\\\Downloads\\\\SEEFA PROJECT\",\"staticConfigPath\":\"C:\\\\Users\\\\USER\\\\Downloads\\\\SEEFA PROJECT\\\\app.json\",\"pluginHistory\":{\"expo-secure-store\":{\"name\":\"expo-secure-store\",\"version\":\"14.2.3\"},\"expo-local-authentication\":{\"name\":\"expo-local-authentication\",\"version\":\"16.0.4\"}},\"isDebug\":false,\"dynamicConfigPath\":{}},\"ios\":{\"infoPlist\":{\"NSFaceIDUsageDescription\":\"SEEFA uses Face ID or Touch ID to secure your data and provide quick access.\",\"ITSAppUsesNonExemptEncryption\":false},\"bundleIdentifier\":\"com.seefa.keymanager\",\"supportsTablet\":true},\"owner\":\"harbidec\",\"hostUri\":\"172.20.10.4:8081\",\"android\":{\"package\":\"com.seefa.keymanager\",\"permissions\":[\"USE_BIOMETRIC\",\"USE_FINGERPRINT\",\"android.permission.USE_BIOMETRIC\",\"android.permission.USE_FINGERPRINT\"],\"adaptiveIcon\":{\"foregroundImageUrl\":\"http:\\/\\/172.20.10.4:8081\\/assets\\/.\\/assets\\/adaptive-icon.png\",\"foregroundImage\":\".\\/assets\\/adaptive-icon.png\",\"backgroundColor\":\"#1E1B26\"}},\"plugins\":[\"expo-secure-store\",[\"expo-local-authentication\",{\"faceIDPermission\":\"SEEFA uses Face ID or Touch ID to secure your data and provide quick access.\"}]],\"icon\":\".\\/assets\\/icon.png\",\"slug\":\"seefa\",\"web\":{\"favicon\":\".\\/assets\\/favicon.png\"},\"splash\":{\"resizeMode\":\"contain\",\"backgroundColor\":\"#1E1B26\",\"image\":\".\\/assets\\/splash.png\",\"imageUrl\":\"http:\\/\\/172.20.10.4:8081\\/assets\\/.\\/assets\\/splash.png\"},\"platforms\":[\"ios\",\"android\",\"web\"],\"iconUrl\":\"http:\\/\\/172.20.10.4:8081\\/assets\\/.\\/assets\\/icon.png\",\"sdkVersion\":\"53.0.0\",\"name\":\"SEEFA\"},\"expoGo\":{\"developer\":{\"projectRoot\":\"C:\\\\Users\\\\USER\\\\Downloads\\\\SEEFA PROJECT\",\"tool\":\"expo-cli\"},\"__flipperHack\":\"React Native packager is running\",\"mainModuleName\":\"node_modules\\/expo\\/AppEntry\",\"packagerOpts\":{\"dev\":true},\"debuggerHost\":\"172.20.10.4:8081\"}},\"isVerified\":true,\"metadata\":{},\"id\":\"fd741610-e323-4e76-8f2b-dd5c8c3a166d\",\"launchAsset\":{\"key\":\"bundle\",\"contentType\":\"application\\/javascript\",\"url\":\"http:\\/\\/172.20.10.4:8081\\/node_modules\\/expo\\/AppEntry.bundle?platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable\"},\"assets\":[]}","shell":false,"initialUri":"exp://172.20.10.4:8081","appOwnership":"expo"}},"fabric":true}
+&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:1150 Warning: Error: useAppContext must be used within an AppDataProvider
+
+This error is located at:
+    at App (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:96938:54)
+    at withDevTools(App) (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:96505:27)
+    at RCTView (<anonymous>)
+    at View (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:60761:43)
+    at RCTView (<anonymous>)
+    at View (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:60761:43)
+    at AppContainer (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:60630:25)
+    at main(RootComponent) (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:77911:28), js engine: hermes
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:1150
+overrideMethod @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:51614
+reactConsoleErrorHandler @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12516
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:59315
+registerError @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:13029
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12896
+reportException @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12473
+handleException @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12506
+onUncaughtError @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12379
+logUncaughtError @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:26557
+runWithFiberInDEV @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:23449
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:26589
+callCallback @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:24973
+commitCallbacks @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:24981
+runWithFiberInDEV @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:23449
+commitLayoutEffectOnFiber @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:28108
+commitLayoutEffects @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:28371
+commitRootImpl @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:29316
+commitRootWhenReady @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:28897
+performWorkOnRoot @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:28880
+performWorkOnRootViaSchedulerTask @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:24694
+&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:1150 Error: undefined Unable to resolve module ../screens/AppLockScreen from C:\Users\USER\Downloads\SEEFA PROJECT\src\navigation\AppNavigator.tsx: 
+
+None of these files exist:
+  * src\screens\AppLockScreen(.ios.ts|.native.ts|.ts|.ios.tsx|.native.tsx|.tsx|.ios.mjs|.native.mjs|.mjs|.ios.js|.native.js|.js|.ios.jsx|.native.jsx|.jsx|.ios.json|.native.json|.json|.ios.cjs|.native.cjs|.cjs|.ios.scss|.native.scss|.scss|.ios.sass|.native.sass|.sass|.ios.css|.native.css|.css)
+  * src\screens\AppLockScreen
+[0m [90m 13 |[39m [90m// Fix: Assuming MasterPasswordSetupScreen has a default export, this import should be fine. The error might be elsewhere.[39m
+ [90m 14 |[39m [36mimport[39m [33mMasterPasswordSetupScreen[39m [36mfrom[39m [32m'../screens/MasterPasswordSetupScreen'[39m[33m;[39m 
+[31m[1m>[22m[39m[90m 15 |[39m [36mimport[39m [33mAppLockScreen[39m [36mfrom[39m [32m'../screens/AppLockScreen'[39m[33m;[39m
+ [90m    |[39m                            [31m[1m^[22m[39m
+ [90m 16 |[39m [36mimport[39m [33mPrivacyPolicyScreen[39m [36mfrom[39m [32m'../screens/PrivacyPolicyScreen'[39m[33m;[39m [90m// Import new screen[39m
+ [90m 17 |[39m [36mimport[39m [33mTermsOfServiceScreen[39m [36mfrom[39m [32m'../screens/TermsOfServiceScreen'[39m[33m;[39m [90m// Import new screen[39m
+ [90m 18 |[39m[0m
+    at showCompileError (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:58590:26)
+    at anonymous (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:58517:29)
+    at call (native)
+    at emit (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:58939:35)
+    at anonymous (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:58737:23)
+    at call (native)
+    at dispatchEvent (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:54924:31)
+    at anonymous (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:54108:29)
+    at apply (native)
+    at emit (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:12218:40)
+    at apply (native)
+    at anonymous (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:12077:200)
+    at emit (http://172.20.10.4:8081/node_modules/expo/AppEntry.bundle//&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:12091:66)
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:1150
+overrideMethod @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:51614
+reactConsoleErrorHandler @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12516
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:59315
+registerError @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:13006
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12896
+dispatchEvent @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:54927
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:54108
+emit @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12218
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12077
+emit @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12091
+&platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:1150 Cannot connect to Metro.
+
+Try the following to fix the issue:
+- Ensure that Metro is running and available on the same network
+- Ensure that the Metro URL is correctly set in AppDelegate
+
+URL: 172.20.10.4:8081
+
+Error: The operation couldn’t be completed. Connection reset by peer
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:1150
+overrideMethod @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:51614
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:59315
+registerWarning @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12963
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12899
+setHMRUnavailableReason @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:58547
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:58486
+emit @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:58939
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:58715
+dispatchEvent @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:54924
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:54134
+emit @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12218
+anonymous @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12077
+emit @ &platform=ios&dev=true&hot=false&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=app&unstable_transformProfile=hermes-stable:sourcemap:12091
+Welcome to React Native DevTools
+Debugger integration: ios Bridgeless (RCTHost)

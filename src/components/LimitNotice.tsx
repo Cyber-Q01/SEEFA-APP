@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 // Fix: useAppContext will be exported from AppDataContext.tsx
-import { useAppContext } from '../contexts/AppDataContext';
+import { useAppData } from '../contexts/AppDataContext';
 import { UserPlan } from '../types';
 import { FREE_PLAN_LIMIT } from '../config/constants';
 import { RootStackParamList } from '../navigation/AppNavigator';
@@ -34,7 +34,7 @@ const LimitNotice: React.FC = () => {
   const theme = useTheme<AppThemeType>();
   const styles = makeStyles(theme); // Create styles with theme
   const navigation = useNavigation<LimitNoticeNavigationProp>();
-  const { plan, entries, isLoading: contextIsLoading } = useAppContext(); // Renamed isLoading
+  const { plan, entries, isLoading: contextIsLoading } = useAppData(); // Renamed isLoading
   const [visible, setVisible] = React.useState(true);
 
   // Determine if notice should be shown

@@ -3,6 +3,7 @@
     "name": "SEEFA",
     "slug": "seefa",
     "version": "1.0.0",
+    "sdkVersion": "53.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -15,7 +16,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.seefa.keymanager",
       "infoPlist": {
-        "NSFaceIDUsageDescription": "SEEFA uses Face ID or Touch ID to secure your data and provide quick access."
+        "NSFaceIDUsageDescription": "SEEFA uses Face ID or Touch ID to secure your data and provide quick access.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {

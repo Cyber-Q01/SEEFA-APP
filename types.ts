@@ -1,4 +1,3 @@
-
 export enum EntryType {
   Password = 'password',
   Web3Key = 'web3key',
@@ -21,13 +20,10 @@ export interface PasswordEntry extends BaseEntry {
 
 export interface Web3KeyEntry extends BaseEntry {
   type: EntryType.Web3Key;
-  label: string;
-  walletName: string;
-  projectName?: string;
-  secretPhrase?: string;
-  secretKey?: string;
-  pinCode?: string;
-  websiteUrl?: string;
+  appName: string;
+  address: string;
+  privateKey: string;
+  network?: string;
   category?: string;
 }
 
@@ -38,7 +34,7 @@ export enum UserPlan {
   Pro = 'pro',
 }
 
-export interface AppContextType {
+export interface AppDataContextType {
   entries: Entry[];
   addEntry: (entry: Omit<PasswordEntry, 'id' | 'type' | 'createdAt'> | Omit<Web3KeyEntry, 'id' | 'type' | 'createdAt'>, type: EntryType) => boolean;
   updateEntry: (updatedEntry: Entry) => void;
@@ -47,12 +43,14 @@ export interface AppContextType {
   upgradeToPro: () => void;
   getEntryById: (id: string) => Entry | undefined;
   isLoading: boolean;
+  isEncryptionKeySet: boolean;
+  setMasterPasswordAndInitialize: (password: string) => Promise<boolean>;
+  isAppLocked: boolean;
+  unlockApp: (password?: string) => Promise<boolean>;
+  lockApp: () => void;
+  checkBiometricsAndUnlock: () => Promise<boolean>;
+  isBiometricsSupported: boolean;
+  isBiometricsEnabled: boolean;
+  toggleBiometrics: (enable: boolean, masterPassword?: string) => Promise<boolean>;
+  changeMasterPassword: (currentPassword: string, newPassword: string) => Promise<boolean>;
 }
-
-export type PaystackProps = {
-  email: string;
-  amount: number;
-  publicKey: string;
-  onSuccess: () => void;
-  onClose: () => void;
-};
