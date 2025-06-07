@@ -1,17 +1,17 @@
 import React from 'react';
-// Fix: Added 'View' to import from 'react-native'
-import { ScrollView, StyleSheet, Linking, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { Text, useTheme, Appbar, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { AppThemeType } from '../config/theme';
 
-// IMPORTANT: This is a TEMPLATE. Review and customize with a legal professional.
+// Define the structure for privacy policy sections
 const PRIVACY_POLICY_TEXT_SECTIONS = [
   {
     heading: "Privacy Policy for SEEFA",
-    lastUpdated: true, // Will be replaced by dynamic date or placeholder
+    lastUpdated: true,
     paragraphs: [
-      "Welcome to SEEFA (\"we,\" \"us,\" or \"our\"). We are committed to protecting your privacy and handling your data in an open and transparent manner. This Privacy Policy explains how we collect, use, process,and safeguard your information when you use our mobile application, SEEFA (the \"App\").",
+      "Welcome to SEEFA (\"we,\" \"us,\" or \"our\"). We are committed to protecting your privacy and handling your data in an open and transparent manner. This Privacy Policy explains how we collect, use, process, and safeguard your information when you use our mobile application, SEEFA (the \"App\").",
       "Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the application."
     ],
   },
@@ -47,32 +47,24 @@ const PRIVACY_POLICY_TEXT_SECTIONS = [
           "User Plan: Your current plan (Free or Pro) is stored locally on your device.",
           "Biometrics Enabled Status: Whether you have enabled biometric authentication is stored locally."
         ]
-      },
-      {
-        title: "d. Anonymous Usage Data (Conceptual - IF IMPLEMENTED):",
-        points: [
-          "[IF YOU IMPLEMENT ANALYTICS, DESCRIBE IT HERE. E.g., \"We may collect anonymous, aggregated usage statistics to help us improve the App, such as features used or crash reports. This data does not personally identify you and does not include any of your sensitive stored entries.\"]",
-          "Currently, SEEFA is designed not to collect such usage data by default."
-        ]
       }
     ]
   },
   {
     heading: "2. How We Use Your Information",
     paragraphs: [
-      "To Provide and Maintain the App: To enable you to securely store, manage, and access your passwords and Web3 keys locally on your device.",
-      "To Encrypt Your Data: To use your Master Password (or biometrically protected key) to encrypt and decrypt your data stored within the App on your device.",
-      "To Process Plan Upgrades: To facilitate your upgrade to the Pro plan through Paystack and update your plan status in the App.",
-      "To Improve the App: [IF ANALYTICS IMPLEMENTED: \"To understand how users interact with the App to improve its functionality, usability, and security features.\"]"
+      "To provide and maintain the App: To enable you to securely store, manage, and access your passwords and Web3 keys locally on your device.",
+      "To encrypt your data: To use your Master Password (or biometrically protected key) to encrypt and decrypt your data stored within the App on your device.",
+      "To process plan upgrades: To facilitate your upgrade to the Pro plan through Paystack and update your plan status in the App."
     ]
   },
   {
     heading: "3. Data Storage and Security",
     paragraphs: [
-      "Local Storage: All your sensitive data (passwords, Web3 keys, etc.) is encrypted using strong AES-256 encryption and stored exclusively on your device's local storage.",
-      "Encryption: Your data is encrypted using a key derived from your Master Password. It is crucial that you choose a strong, unique Master Password and keep it confidential. **If you forget your Master Password, your data will be irrecoverable as we do not have access to it or your Master Password.**",
-      "Biometric Security: If enabled, biometric authentication provides an additional layer of convenience for accessing your encrypted data, relying on your device's built-in security features.",
-      "No Server-Side Storage of Sensitive Data: We do not transmit or store your sensitive vault data on any external servers."
+      "All your sensitive data (passwords, Web3 keys, etc.) is encrypted using strong AES-256 encryption and stored exclusively on your device's local storage.",
+      "Your data is encrypted using a key derived from your Master Password. It is crucial that you choose a strong, unique Master Password and keep it confidential. If you forget your Master Password, your data will be irrecoverable as we do not have access to it or your Master Password.",
+      "If enabled, biometric authentication provides an additional layer of convenience for accessing your encrypted data, relying on your device's built-in security features.",
+      "We do not transmit or store your sensitive vault data on any external servers."
     ]
   },
   {
@@ -82,29 +74,29 @@ const PRIVACY_POLICY_TEXT_SECTIONS = [
       "We may share information in the following limited circumstances:",
     ],
     subSections: [
-        {
-            points: [
-                "With Payment Processors: Anonymized or transactional data may be shared with Paystack solely for the purpose of processing your Pro plan payment.",
-                "Legal Requirements: If required by law, subpoena, or other legal process in Nigeria, we may disclose information we have (which is extremely limited, primarily to non-sensitive data if any is ever collected by us directly)."
-            ]
-        }
+      {
+        points: [
+          "With Payment Processors: Transactional data may be shared with Paystack solely for the purpose of processing your Pro plan payment.",
+          "Legal Requirements: If required by law, subpoena, or other legal process in Nigeria, we may disclose information we have (which is extremely limited, primarily to non-sensitive data if any is ever collected by us directly)."
+        ]
+      }
     ]
   },
   {
-    heading: "5. Your Data Protection Rights (under NDPR/NDPA)",
+    heading: "5. Your Data Protection Rights",
     paragraphs: [
       "As your sensitive data is stored locally under your control:",
     ],
     subSections: [
-        {
-            points: [
-                "Access, Rectification, Erasure: You can directly access, modify, or delete your entries within the App.",
-                "Data Backup and Responsibility: You are solely responsible for backing up your device and the App's data if you wish to prevent data loss due to device failure, loss, or uninstallation of the App. SEEFA does not currently offer an automated backup or export feature for your encrypted data."
-            ]
-        }
+      {
+        points: [
+          "Access, Rectification, Erasure: You can directly access, modify, or delete your entries within the App.",
+          "Data Backup and Responsibility: You are solely responsible for backing up your device and the App's data if you wish to prevent data loss due to device failure, loss, or uninstallation of the App."
+        ]
+      }
     ],
-    paragraphsAfterSubsections: [ // New field for paragraphs after subsections
-        "If you have questions about your data that is not directly manageable within the app (e.g., pertaining to payment transaction records if any), please contact us."
+    paragraphsAfterSubsections: [
+      "If you have questions about your data that is not directly manageable within the app (e.g., pertaining to payment transaction records if any), please contact us."
     ]
   },
   {
@@ -123,127 +115,114 @@ const PRIVACY_POLICY_TEXT_SECTIONS = [
     heading: "8. Contact Us",
     paragraphs: [
       "If you have any questions about this Privacy Policy, please contact us at:",
-      "[Your Email Address for Support/Privacy Inquiries - e.g., support@seefa.app]",
+      "[Your Email Address for Support/Privacy Inquiries]",
       "[Your Business Name/Developer Name, if applicable]",
-      "[Your Business Address, if applicable - Nigerian business registration may require this]",
+      "[Your Business Address, if applicable]",
       "This Privacy Policy is governed by the laws of the Federal Republic of Nigeria."
     ]
   },
   {
-    heading: "Legal Disclaimer",
+    heading: "Breach Check Privacy",
     paragraphs: [
-        "The contents of this Privacy Policy are for informational purposes only and do not constitute legal advice. You should consult with a qualified legal professional to ensure compliance with all applicable laws and regulations for your specific circumstances."
-    ],
-    isDisclaimer: true,
+      "When you use the breach check feature, your password is never sent to any server. Instead, only a small, anonymous portion of its cryptographic hash is sent to the Have I Been Pwned API using a privacy-respecting method (k-Anonymity). This ensures your password remains private and secure."
+    ]
   }
 ];
 
+// Define the type for a privacy policy section
 type PrivacyPolicySection = {
-    heading: string;
-    lastUpdated?: boolean;
-    paragraphs?: string[];
-    subSections?: {
-        title?: string;
-        points: string[];
-    }[];
-    paragraphsAfterSubsections?: string[];
-    isDisclaimer?: boolean;
+  heading: string;
+  lastUpdated?: boolean;
+  paragraphs?: string[];
+  subSections?: ({ title: string; points: string[]; } | { points: string[]; })[];
+  paragraphsAfterSubsections?: string[];
 };
 
+// PrivacyPolicyScreen component
 const PrivacyPolicyScreen: React.FC = () => {
-  const theme = useTheme<AppThemeType>();
-  const navigation = useNavigation();
-  const styles = makeStyles(theme);
+  const theme = useTheme<AppThemeType>(); // Use the theme
+  const navigation = useNavigation(); // Use the navigation hook
+  const styles = makeStyles(theme); // Create the styles
 
-  const lastUpdatedDate = "October 26, 2023"; // Placeholder: Replace with actual or dynamic date
+  const lastUpdatedDate = "October 26, 2023"; // Update as needed
 
+  // Render the component
   return (
     <>
-      <Appbar.Header
-        // Fix: Color property will be valid after theme.ts fixes.
-        style={{ backgroundColor: theme.colors.elevation.level2 }}
-        // Fix: Removed invalid 'statusBarAnimation' prop
-      >
-        {/* Fix: Color properties will be valid after theme.ts fixes. */}
+      {/* Appbar header */}
+      <Appbar.Header style={{ backgroundColor: theme.colors.elevation.level2 }}>
         <Appbar.BackAction onPress={() => navigation.goBack()} color={theme.colors.onSurface} />
         <Appbar.Content title="Privacy Policy" titleStyle={{color: theme.colors.onSurface}} />
       </Appbar.Header>
-      {/* Fix: Color properties will be valid after theme.ts fixes. */}
+      {/* Scrollable content */}
       <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
-        <Text style={[styles.importantDisclaimer, {color: theme.colors.error, backgroundColor: theme.colors.errorContainer}]}>
-            IMPORTANT: This is a template. Review and customize with a legal professional before use.
-        </Text>
+        {/* Map through the privacy policy sections */}
         {PRIVACY_POLICY_TEXT_SECTIONS.map((section, index) => (
+          // Privacy Policy Section - Main container for each section
           <View key={index} style={styles.section}>
-            <Text variant={section.isDisclaimer ? "titleMedium" : "headlineSmall"} style={[styles.heading, section.isDisclaimer && {color: theme.colors.error}]}>
+            {/* Section heading */}
+            <Text variant="headlineSmall" style={styles.heading}>
               {section.heading}
             </Text>
+            {/* Last updated date */}
             {section.lastUpdated && (
               <Text style={styles.paragraph}>Last Updated: {lastUpdatedDate}</Text>
             )}
+            {/* Section paragraphs */}
             {section.paragraphs?.map((paragraph, pIndex) => (
-              <Text key={pIndex} style={styles.paragraph}>
-                {paragraph.includes("**") // Basic bold handling
-                    ? paragraph.split("**").map((textPart, i) => (
-                        <Text key={i} style={i % 2 === 1 ? styles.boldText : {}}>{textPart}</Text>
-                    ))
-                    : paragraph
-                }
-              </Text>
+              // Section paragraph - Individual paragraph within a section
+              <Text key={pIndex} style={styles.paragraph}>{paragraph}</Text>
             ))}
-            {section.subSections?.map((subSection: { title?: string; points: string[]; }, sIndex) => (
+            {/* Section sub sections */}
+            {section.subSections?.map((subSection, sIndex) => (
               <View key={sIndex} style={styles.subSection}>
-                {subSection.title && <Text style={styles.subHeading}>{subSection.title}</Text>}
-                {subSection.points?.map((point, ptIndex) => (
+                {/* Sub section title - check if title exists before rendering */}
+                {('title' in subSection) && <Text style={styles.subHeading}>{subSection.title}</Text>}
+                {/* Sub section points */}
+                {('points' in subSection) && subSection.points?.map((point, ptIndex) => (
+                  // Sub section point - Individual point within a sub section
                   <Text key={ptIndex} style={styles.listItem}>
                     {`\u2022  ${point}`}
                   </Text>
                 ))}
               </View>
             ))}
+            {/* Paragraphs after sub sections */}
             {section.paragraphsAfterSubsections?.map((paragraph, paIndex) => (
-                 <Text key={`pa-${paIndex}`} style={styles.paragraph}>{paragraph}</Text>
+              // Paragraph after sub sections - Paragraphs that appear after the sub sections
+              <Text key={`pa-${paIndex}`} style={styles.paragraph}>{paragraph}</Text>
             ))}
           </View>
         ))}
-         <Button
-            mode="outlined"
-            onPress={() => navigation.goBack()}
-            style={styles.closeButton}
-            // Fix: Color property will be valid after theme.ts fixes.
-            textColor={theme.colors.primary}
+        {/* Close button */}
+        <Button
+          mode="outlined"
+          onPress={() => navigation.goBack()}
+          style={styles.closeButton}
+          textColor={theme.colors.primary}
         >
-            Close
+          Close
         </Button>
       </ScrollView>
     </>
   );
 };
 
+// Styles for the component
 const makeStyles = (theme: AppThemeType) => StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
-  importantDisclaimer: {
-    padding: 12,
-    borderRadius: theme.roundness,
-    textAlign: 'center',
-    marginBottom: 16,
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
   section: {
     marginBottom: 20,
   },
   heading: {
-    // Fix: Color property will be valid after theme.ts fixes.
     color: theme.colors.primary,
     marginBottom: 10,
   },
   subHeading: {
-    // Fix: Color property will be valid after theme.ts fixes.
     color: theme.colors.onSurface,
     fontSize: 16,
     fontWeight: 'bold',
@@ -251,24 +230,17 @@ const makeStyles = (theme: AppThemeType) => StyleSheet.create({
     marginBottom: 5,
   },
   paragraph: {
-    // Fix: Color property will be valid after theme.ts fixes.
     color: theme.colors.onSurfaceVariant,
     fontSize: 15,
     lineHeight: 22,
     marginBottom: 10,
     textAlign: 'justify',
   },
-  boldText: {
-      fontWeight: 'bold',
-      // Fix: Color property will be valid after theme.ts fixes.
-      color: theme.colors.onSurface,
-  },
   subSection: {
     marginLeft: 10,
     marginBottom: 5,
   },
   listItem: {
-    // Fix: Color property will be valid after theme.ts fixes.
     color: theme.colors.onSurfaceVariant,
     fontSize: 15,
     lineHeight: 22,
@@ -278,7 +250,6 @@ const makeStyles = (theme: AppThemeType) => StyleSheet.create({
   closeButton: {
     marginVertical: 24,
     alignSelf: 'center',
-    // Fix: Color property will be valid after theme.ts fixes.
     borderColor: theme.colors.primary,
   }
 });

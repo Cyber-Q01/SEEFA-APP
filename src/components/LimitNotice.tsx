@@ -74,12 +74,12 @@ const LimitNotice: React.FC = () => {
           label: 'Dismiss',
           onPress: () => setVisible(false),
           // Fix: Color property will be valid after theme.ts fixes.
-          textColor: theme.colors.onSurfaceVariant, 
+          textColor: theme.colors.primary, 
         },
       ]}
       icon={atOrOverLimit ? "alert-circle-outline" : "information-outline"}
       // Fix: Color property will be valid after theme.ts fixes.
-      style={[styles.banner, {backgroundColor: theme.colors.elevation.level3}]} 
+      style={[styles.banner, {backgroundColor: theme.colors.surface}]} 
     >
       {/* Fix: Color property will be valid after theme.ts fixes. */}
       <Text style={{color: theme.colors.onSurface, fontWeight: atOrOverLimit ? 'bold' : 'normal'}}>{message}</Text>

@@ -66,132 +66,132 @@ const Web3KeyCard: React.FC<Web3KeyCardProps> = ({ entry }) => {
     }
   };
 
-  return (
-     <View style={{overflow: 'hidden'}}>
-        <Card style={styles.cardBase}>
-            <LinearGradient
-                // Fix: Access custom gradient colors from strongly typed theme. Color properties will be valid after theme.ts fixes.
-                colors={(theme.colors.gradientWeb3KeyCard || [theme.colors.primary, theme.colors.secondary]) as [string, string]}
-                style={StyleSheet.absoluteFillObject}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-            />
-            <Card.Content style={styles.cardContent}>
-                <View style={styles.headerRow}>
-                    <View style={styles.titleContainer}>
-                         {/* Fix: Color property will be valid after theme.ts fixes. */}
-                         <IconButton icon="key-chain-variant" size={24} iconColor={theme.colors.onPrimary} style={styles.cardIcon}/>
-                        <View style={{flexShrink: 1}}>
-                            {/* Fix: Color property will be valid after theme.ts fixes. */}
-                            <Text variant="titleLarge" style={[styles.labelName, {color: theme.colors.onPrimary}]} numberOfLines={1}>
-                                {entry.label}
-                            </Text>
-                            {/* Fix: Color property will be valid after theme.ts fixes. */}
-                            <Text variant="bodySmall" style={{color: theme.colors.onPrimary+'CC'}} numberOfLines={1}>{entry.walletName}</Text>
-                        </View>
-                    </View>
-                    <Menu
-                        visible={menuVisible}
-                        onDismiss={() => setMenuVisible(false)}
-                        anchor={
-                            <IconButton 
-                                icon="dots-vertical" 
-                                size={24} 
-                                onPress={() => setMenuVisible(true)} 
-                                // Fix: Color property will be valid after theme.ts fixes.
-                                iconColor={theme.colors.onPrimary}
-                                style={styles.menuAnchor}
-                            />
-                        }
-                        // Fix: Color property will be valid after theme.ts fixes.
-                         contentStyle={{backgroundColor: theme.colors.elevation.level3}}
-                    >
-                        <Menu.Item 
-                            onPress={() => { navigation.navigate('AddEditEntry', { entryId: entry.id, entryType: EntryType.Web3Key }); setMenuVisible(false); }} 
-                            title="Edit Entry" 
-                            leadingIcon="pencil-outline"
-                            // Fix: Color property will be valid after theme.ts fixes.
-                            titleStyle={{color: theme.colors.onSurface}}
-                        />
-                        <Divider />
-                        <Menu.Item 
-                            onPress={handleDelete} 
-                            title="Delete Entry" 
-                            leadingIcon="trash-can-outline"
-                            // Fix: Color property will be valid after theme.ts fixes.
-                            titleStyle={{color: theme.colors.error}}
-                        />
-                    </Menu>
-                </View>
+//   return (
+//      <View style={{overflow: 'hidden'}}>
+//         <Card style={styles.cardBase}>
+//             <LinearGradient
+//                 // Fix: Access custom gradient colors from strongly typed theme. Color properties will be valid after theme.ts fixes.
+//                 colors={(theme.colors.gradientWeb3KeyCard || [theme.colors.primary, theme.colors.secondary]) as [string, string]}
+//                 style={StyleSheet.absoluteFillObject}
+//                 start={{ x: 0, y: 0 }}
+//                 end={{ x: 1, y: 1 }}
+//             />
+//             <Card.Content style={styles.cardContent}>
+//                 <View style={styles.headerRow}>
+//                     <View style={styles.titleContainer}>
+//                          {/* Fix: Color property will be valid after theme.ts fixes. */}
+//                          <IconButton icon="key-chain-variant" size={24} iconColor={theme.colors.onPrimary} style={styles.cardIcon}/>
+//                         <View style={{flexShrink: 1}}>
+//                             {/* Fix: Color property will be valid after theme.ts fixes. */}
+//                             <Text variant="titleLarge" style={[styles.labelName, {color: theme.colors.onPrimary}]} numberOfLines={1}>
+//                                 {entry.label}
+//                             </Text>
+//                             {/* Fix: Color property will be valid after theme.ts fixes. */}
+//                             <Text variant="bodySmall" style={{color: theme.colors.onPrimary+'CC'}} numberOfLines={1}>{entry.walletName}</Text>
+//                         </View>
+//                     </View>
+//                     <Menu
+//                         visible={menuVisible}
+//                         onDismiss={() => setMenuVisible(false)}
+//                         anchor={
+//                             <IconButton 
+//                                 icon="dots-vertical" 
+//                                 size={24} 
+//                                 onPress={() => setMenuVisible(true)} 
+//                                 // Fix: Color property will be valid after theme.ts fixes.
+//                                 iconColor={theme.colors.onPrimary}
+//                                 style={styles.menuAnchor}
+//                             />
+//                         }
+//                         // Fix: Color property will be valid after theme.ts fixes.
+//                          contentStyle={{backgroundColor: theme.colors.elevation.level3}}
+//                     >
+//                         <Menu.Item 
+//                             onPress={() => { navigation.navigate('AddEditEntry', { entryId: entry.id, entryType: EntryType.Web3Key }); setMenuVisible(false); }} 
+//                             title="Edit Entry" 
+//                             leadingIcon="pencil-outline"
+//                             // Fix: Color property will be valid after theme.ts fixes.
+//                             titleStyle={{color: theme.colors.onSurface}}
+//                         />
+//                         <Divider />
+//                         <Menu.Item 
+//                             onPress={handleDelete} 
+//                             title="Delete Entry" 
+//                             leadingIcon="trash-can-outline"
+//                             // Fix: Color property will be valid after theme.ts fixes.
+//                             titleStyle={{color: theme.colors.error}}
+//                         />
+//                     </Menu>
+//                 </View>
 
-              {entry.category && (
-                // Fix: Color property will be valid after theme.ts fixes.
-                <View style={[styles.categoryChip, {backgroundColor: theme.colors.onPrimary+'33'}]}>
-                    <Text style={[styles.categoryText, {color: theme.colors.onPrimary}]}>
-                    {entry.category}
-                    </Text>
-                </View>
-              )}
-              {/* Fix: Color properties will be valid after theme.ts fixes. */}
-              {entry.projectName && <InfoRow label="Project Name" value={entry.projectName} onCopy={() => handleCopy(entry.projectName!, "Project Name")} icon="briefcase-outline" textColor={theme.colors.onPrimary} labelColor={theme.colors.onPrimary+'AA'}/>}
+//               {entry.category && (
+//                 // Fix: Color property will be valid after theme.ts fixes.
+//                 <View style={[styles.categoryChip, {backgroundColor: theme.colors.onPrimary+'33'}]}>
+//                     <Text style={[styles.categoryText, {color: theme.colors.onPrimary}]}>
+//                     {entry.category}
+//                     </Text>
+//                 </View>
+//               )}
+//               {/* Fix: Color properties will be valid after theme.ts fixes. */}
+//               {entry.projectName && <InfoRow label="Project Name" value={entry.projectName} onCopy={() => handleCopy(entry.projectName!, "Project Name")} icon="briefcase-outline" textColor={theme.colors.onPrimary} labelColor={theme.colors.onPrimary+'AA'}/>}
               
-              {entry.secretPhrase && (
-                <SensitiveInfoRow 
-                    label="Secret Phrase" 
-                    value={entry.secretPhrase} 
-                    revealed={revealedFields.secretPhrase} 
-                    onToggleReveal={() => toggleReveal('secretPhrase')}
-                    onCopy={() => handleCopy(entry.secretPhrase!, "Secret Phrase")}
-                    icon="text-box-outline"
-                    // Fix: Color properties will be valid after theme.ts fixes.
-                    textColor={theme.colors.onPrimary} 
-                    labelColor={theme.colors.onPrimary+'AA'}
-                />
-              )}
-              {entry.secretKey && (
-                 <SensitiveInfoRow 
-                    label="Secret Key" 
-                    value={entry.secretKey} 
-                    revealed={revealedFields.secretKey} 
-                    onToggleReveal={() => toggleReveal('secretKey')}
-                    onCopy={() => handleCopy(entry.secretKey!, "Secret Key")}
-                    icon="key-outline" // Using a different key icon
-                    // Fix: Color properties will be valid after theme.ts fixes.
-                    textColor={theme.colors.onPrimary} 
-                    labelColor={theme.colors.onPrimary+'AA'}
-                />
-              )}
-              {entry.pinCode && (
-                <SensitiveInfoRow 
-                    label="PIN Code" 
-                    value={entry.pinCode} 
-                    revealed={revealedFields.pinCode} 
-                    onToggleReveal={() => toggleReveal('pinCode')}
-                    onCopy={() => handleCopy(entry.pinCode!, "PIN Code")}
-                    icon="lock-outline" // Using a different lock icon
-                    // Fix: Color properties will be valid after theme.ts fixes.
-                    textColor={theme.colors.onPrimary} 
-                    labelColor={theme.colors.onPrimary+'AA'}
-                />
-              )}
-              {entry.websiteUrl && (
-                 <TouchableOpacity onPress={() => handleOpenUrl(entry.websiteUrl)} onLongPress={() => handleCopy(entry.websiteUrl!, "Website URL")}>
-                   <InfoRow 
-                    label="Website URL" 
-                    value={entry.websiteUrl} 
-                    isUrl 
-                    icon="web"
-                    // Fix: Color properties will be valid after theme.ts fixes.
-                    textColor={theme.colors.onPrimary} 
-                    labelColor={theme.colors.onPrimary+'AA'}
-                  />
-                </TouchableOpacity>
-              )}
-           </Card.Content>
-         </Card>
-     </View>
-  );
-};
+//               {entry.secretPhrase && (
+//                 <SensitiveInfoRow 
+//                     label="Secret Phrase" 
+//                     value={entry.secretPhrase} 
+//                     revealed={revealedFields.secretPhrase} 
+//                     onToggleReveal={() => toggleReveal('secretPhrase')}
+//                     onCopy={() => handleCopy(entry.secretPhrase!, "Secret Phrase")}
+//                     icon="text-box-outline"
+//                     // Fix: Color properties will be valid after theme.ts fixes.
+//                     textColor={theme.colors.onPrimary} 
+//                     labelColor={theme.colors.onPrimary+'AA'}
+//                 />
+//               )}
+//               {entry.secretKey && (
+//                  <SensitiveInfoRow 
+//                     label="Secret Key" 
+//                     value={entry.secretKey} 
+//                     revealed={revealedFields.secretKey} 
+//                     onToggleReveal={() => toggleReveal('secretKey')}
+//                     onCopy={() => handleCopy(entry.secretKey!, "Secret Key")}
+//                     icon="key-outline" // Using a different key icon
+//                     // Fix: Color properties will be valid after theme.ts fixes.
+//                     textColor={theme.colors.onPrimary} 
+//                     labelColor={theme.colors.onPrimary+'AA'}
+//                 />
+//               )}
+//               {entry.pinCode && (
+//                 <SensitiveInfoRow 
+//                     label="PIN Code" 
+//                     value={entry.pinCode} 
+//                     revealed={revealedFields.pinCode} 
+//                     onToggleReveal={() => toggleReveal('pinCode')}
+//                     onCopy={() => handleCopy(entry.pinCode!, "PIN Code")}
+//                     icon="lock-outline" // Using a different lock icon
+//                     // Fix: Color properties will be valid after theme.ts fixes.
+//                     textColor={theme.colors.onPrimary} 
+//                     labelColor={theme.colors.onPrimary+'AA'}
+//                 />
+//               )}
+//               {entry.websiteUrl && (
+//                  <TouchableOpacity onPress={() => handleOpenUrl(entry.websiteUrl)} onLongPress={() => handleCopy(entry.websiteUrl!, "Website URL")}>
+//                    <InfoRow 
+//                     label="Website URL" 
+//                     value={entry.websiteUrl} 
+//                     isUrl 
+//                     icon="web"
+//                     // Fix: Color properties will be valid after theme.ts fixes.
+//                     textColor={theme.colors.onPrimary} 
+//                     labelColor={theme.colors.onPrimary+'AA'}
+//                   />
+//                 </TouchableOpacity>
+//               )}
+//            </Card.Content>
+//          </Card>
+//      </View>
+//   );
+// };
 
 const InfoRow: React.FC<{label: string, value?: string, isUrl?: boolean, onCopy?: () => void, icon?: string, textColor?: string, labelColor?: string}> = 
   ({label, value, isUrl, onCopy, icon, textColor, labelColor}) => {
@@ -250,12 +250,13 @@ const SensitiveInfoRow: React.FC<{label: string, value: string, revealed?: boole
 };
 
 
+
 const styles = StyleSheet.create({
   cardBase: {
     borderRadius: 16,
     marginVertical: 8,
     elevation: 4,
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
   cardContent: {
     padding: 16,
@@ -333,5 +334,116 @@ const styles = StyleSheet.create({
     height: 30,
   },
 });
+return (
+  <Card style={styles.cardBase}>
+    <View style={{ borderRadius: 16, overflow: 'hidden' }}>
+      <LinearGradient
+        colors={(theme.colors.gradientWeb3KeyCard || [theme.colors.primary, theme.colors.secondary]) as [string, string]}
+        style={StyleSheet.absoluteFillObject}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      />
+      <Card.Content style={styles.cardContent}>
+        <View style={styles.headerRow}>
+          <View style={styles.titleContainer}>
+            <IconButton icon="key-chain-variant" size={24} iconColor={theme.colors.onPrimary} style={styles.cardIcon}/>
+            <View style={{flexShrink: 1}}>
+              <Text variant="titleLarge" style={[styles.labelName, {color: theme.colors.onPrimary}]} numberOfLines={1}>
+                {entry.label}
+              </Text>
+              <Text variant="bodySmall" style={{color: theme.colors.onPrimary+'CC'}} numberOfLines={1}>{entry.walletName}</Text>
+            </View>
+          </View>
+          <Menu
+            visible={menuVisible}
+            onDismiss={() => setMenuVisible(false)}
+            anchor={
+              <IconButton 
+                icon="dots-vertical" 
+                size={24} 
+                onPress={() => setMenuVisible(true)} 
+                iconColor={theme.colors.onPrimary}
+                style={styles.menuAnchor}
+              />
+            }
+            contentStyle={{backgroundColor: theme.colors.elevation.level3}}
+          >
+            <Menu.Item 
+              onPress={() => { navigation.navigate('AddEditEntry', { entryId: entry.id, entryType: EntryType.Web3Key }); setMenuVisible(false); }} 
+              title="Edit Entry" 
+              leadingIcon="pencil-outline"
+              titleStyle={{color: theme.colors.onSurface}}
+            />
+            <Divider />
+            <Menu.Item 
+              onPress={handleDelete} 
+              title="Delete Entry" 
+              leadingIcon="trash-can-outline"
+              titleStyle={{color: theme.colors.error}}
+            />
+          </Menu>
+        </View>
+
+        {entry.category && (
+          <View style={[styles.categoryChip, {backgroundColor: theme.colors.onPrimary+'33'}]}>
+            <Text style={[styles.categoryText, {color: theme.colors.onPrimary}]}>
+              {entry.category}
+            </Text>
+          </View>
+        )}
+        {entry.projectName && <InfoRow label="Project Name" value={entry.projectName} onCopy={() => handleCopy(entry.projectName!, "Project Name")} icon="briefcase-outline" textColor={theme.colors.onPrimary} labelColor={theme.colors.onPrimary}/>}
+        
+        {entry.secretPhrase && (
+          <SensitiveInfoRow 
+            label="Secret Phrase" 
+            value={entry.secretPhrase} 
+            revealed={revealedFields.secretPhrase} 
+            onToggleReveal={() => toggleReveal('secretPhrase')}
+            onCopy={() => handleCopy(entry.secretPhrase!, "Secret Phrase")}
+            icon="text-box-outline"
+            textColor={theme.colors.onPrimary} 
+            labelColor={theme.colors.onPrimary}
+          />
+        )}
+        {entry.secretKey && (
+          <SensitiveInfoRow 
+            label="Secret Key" 
+            value={entry.secretKey} 
+            revealed={revealedFields.secretKey} 
+            onToggleReveal={() => toggleReveal('secretKey')}
+            onCopy={() => handleCopy(entry.secretKey!, "Secret Key")}
+            icon="key-outline"
+            textColor={theme.colors.onPrimary} 
+            labelColor={theme.colors.onPrimary}
+          />
+        )}
+        {entry.pinCode && (
+          <SensitiveInfoRow 
+            label="PIN Code" 
+            value={entry.pinCode} 
+            revealed={revealedFields.pinCode} 
+            onToggleReveal={() => toggleReveal('pinCode')}
+            onCopy={() => handleCopy(entry.pinCode!, "PIN Code")}
+            icon="lock-outline"
+            textColor={theme.colors.onPrimary} 
+            labelColor={theme.colors.onPrimary}
+          />
+        )}
+        {entry.websiteUrl && (
+          <TouchableOpacity onPress={() => handleOpenUrl(entry.websiteUrl)} onLongPress={() => handleCopy(entry.websiteUrl!, "Website URL")}>
+            <InfoRow 
+              label="Website URL" 
+              value={entry.websiteUrl} 
+              isUrl 
+              icon="web"
+              textColor={theme.colors.onPrimary} 
+              labelColor={theme.colors.onPrimary}
+            />
+          </TouchableOpacity>
+        )}
+      </Card.Content>
+    </View>
+  </Card>
+);}
 
 export default Web3KeyCard;

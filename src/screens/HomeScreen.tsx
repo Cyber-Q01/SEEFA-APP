@@ -1,38 +1,34 @@
-
 import React, { useState, useMemo } from 'react';
 import { View, FlatList, StyleSheet, Dimensions, Keyboard } from 'react-native';
-import { FAB, Text, SegmentedButtons, useTheme, ActivityIndicator, Searchbar, Button } from 'react-native-paper';
+import { FAB, Text, SegmentedButtons, useTheme, ActivityIndicator, Searchbar } from 'react-native-paper';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import axios from 'axios';
 import * as Clipboard from 'expo-clipboard';
+import { ScrollView } from 'react-native-gesture-handler';
 
-// Fix: useAppContext will be exported from AppDataContext.tsx
 import { useAppData } from '../contexts/AppDataContext';
 import { Entry, EntryType, PasswordEntry, Web3KeyEntry, UserPlan } from '../types';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import PasswordCard from '../components/PasswordCard';
 import Web3KeyCard from '../components/Web3KeyCard';
 import LimitNotice from '../components/LimitNotice';
-
-const GENERATE_PASSWORD = 'generatePassword';
+import PasswordGenerator from '../components/PasswordGenerator';
 import { APP_NAME, FREE_PLAN_LIMIT } from '../config/constants';
 import { AppThemeType } from '../config/theme';
+
+const GENERATE_PASSWORD = 'generatePassword';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 const HomeScreen: React.FC = () => {
   const theme = useTheme<AppThemeType>();
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const { entries, isLoading: contextIsLoading, plan } = useAppData(); // Removed isLimitReached as it's derived
+  const { entries, isLoading: contextIsLoading, plan, isAppLocked } = useAppData();
   const [searchQuery, setSearchQuery] = useState('');
-  const [filter, setFilter] = useState<string>(EntryType.Password); // Ensure filter is string to match SegmentedButtons value type
-  const [generatedPassword, setGeneratedPassword] = useState<string>('');
-  const [isClipboardAvailable, setIsClipboardAvailable] = useState(true);
+  const [filter, setFilter] = useState<string>(EntryType.Password);
 
   // Derive isLimitReached
   const isLimitReached = plan === UserPlan.Free && entries.length >= FREE_PLAN_LIMIT;
-
 
   // Reset search query when screen is focused
   useFocusEffect(
@@ -43,7 +39,7 @@ const HomeScreen: React.FC = () => {
 
   const filteredAndSortedEntries = useMemo(() => {
     let tempEntries = entries;
-    if (filter !== 'all') {
+    if (filter !== 'all' && filter !== GENERATE_PASSWORD) {
       tempEntries = tempEntries.filter(entry => entry.type === filter);
     }
     if (searchQuery) {
@@ -65,14 +61,25 @@ const HomeScreen: React.FC = () => {
         }
       });
     }
-    return tempEntries.sort((a,b) => b.createdAt - a.createdAt);
+    return tempEntries.sort((a, b) => b.createdAt - a.createdAt);
   }, [entries, filter, searchQuery]);
+
+
 
   if (contextIsLoading) {
     return (
-      // Fix: Color properties will be valid after theme.ts fixes.
       <View style={[styles.container, styles.centered, { backgroundColor: theme.colors.background }]}>
         <ActivityIndicator animating={true} size="large" color={theme.colors.primary} />
+      </View>
+    );
+  }
+
+  if (isAppLocked) {
+    return (
+      <View style={[styles.container, styles.centered, { backgroundColor: theme.colors.background }]}>
+        <Text variant="headlineSmall" style={{ color: theme.colors.error }}>
+          App is locked. Please unlock to view your entries.
+        </Text>
       </View>
     );
   }
@@ -89,49 +96,43 @@ const HomeScreen: React.FC = () => {
 
   const EmptyListComponent = () => (
     <View style={styles.centered}>
-      {/* Fix: Color property will be valid after theme.ts fixes. */}
-      <Text variant="headlineSmall" style={{color: theme.colors.onSurfaceVariant, textAlign: 'center', marginBottom: 10}}>
+      <Text variant="headlineSmall" style={{ color: theme.colors.onSurfaceVariant, textAlign: 'center', marginBottom: 10 }}>
         {entries.length === 0 ? `Welcome to ${APP_NAME}!` : "No Entries Found"}
       </Text>
-      {/* Fix: Color property will be valid after theme.ts fixes. */}
-      <Text variant="bodyLarge" style={{color: theme.colors.onSurfaceVariant, textAlign: 'center', marginBottom: 20, paddingHorizontal: 20}}>
-         {entries.length === 0 ? `Tap the '+' button below to add your first password or Web3 key.` : `No entries match your current search or filter criteria. Try a different search or filter.`}
+      <Text variant="bodyLarge" style={{ color: theme.colors.onSurfaceVariant, textAlign: 'center', marginBottom: 20, paddingHorizontal: 20 }}>
+        {entries.length === 0
+          ? `Tap the '+' button below to add your first password or Web3 key.`
+          : `No entries match your current search or filter criteria. Try a different search or filter.`}
       </Text>
     </View>
   );
 
   const canAddMoreEntries = !isLimitReached;
 
-  const generatePassword = async () => {
-    try {
-      const response = await axios.get('https://www.random.org/strings/?num=1&len=16&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new');
-      setGeneratedPassword(response.data.trim());
-    } catch (error) {
-      console.error('Error generating password:', error);
-      setGeneratedPassword('Error generating password');
-    }
-  };
-
   return (
-    // Fix: Color property will be valid after theme.ts fixes.
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background}]}>
       <LimitNotice />
       <Searchbar
         placeholder="Search entries..."
         onChangeText={setSearchQuery}
         value={searchQuery}
-        // Fix: Color properties will be valid after theme.ts fixes.
-        style={[styles.searchbar, {backgroundColor: theme.colors.elevation.level2, color: theme.colors.onSurface}]}
+        style={[styles.searchbar, { backgroundColor: theme.colors.elevation.level2, color: theme.colors.onSurface }]}
         iconColor={theme.colors.primary}
-        inputStyle={{color: theme.colors.onSurface}} // For text input color
-        placeholderTextColor={theme.colors.onSurfaceVariant} // For placeholder color
-        theme={{ colors: { primary: theme.colors.primary, text: theme.colors.onSurface, placeholder: theme.colors.onSurfaceVariant} }} // For other internal elements like ripple
-        onIconPress={() => Keyboard.dismiss()} // Allows dismissing keyboard by tapping search icon
+        inputStyle={{ color: theme.colors.surface}}
+        placeholderTextColor={theme.colors.onSurfaceVariant}
+        theme={{
+          colors: {
+            primary: theme.colors.primary,
+            text: theme.colors.onSurface,
+            placeholder: theme.colors.onSurfaceVariant,
+          },
+        }}
+        onIconPress={() => Keyboard.dismiss()}
       />
       <View style={styles.filterContainer}>
         <SegmentedButtons
           value={filter}
-          onValueChange={(value) => setFilter(value)} // value is already string
+          onValueChange={(value) => setFilter(value)}
           buttons={[
             { value: 'all', label: 'All', icon: 'select-all', style: styles.segmentButton },
             { value: EntryType.Password, label: 'Passwords', icon: 'lock-outline', style: styles.segmentButton },
@@ -143,56 +144,38 @@ const HomeScreen: React.FC = () => {
       </View>
 
       {filter === GENERATE_PASSWORD ? (
-        <View style={styles.centered}>
-          <Button mode="contained" onPress={generatePassword}>
-            Generate Password
-          </Button>
-          <Text style={{ marginTop: 16 }}>
-            Generated Password: {generatedPassword}
-          </Text>
-          <Button
-            mode="contained"
-            onPress={() => {
-              Clipboard.setStringAsync(generatedPassword);
-            }}
-          >
-            Copy to Clipboard
-          </Button>
-          <Button
-            mode="contained"
-            onPress={async () => {
-              navigation.navigate('AddEditEntry', {formData: {passwordValue: generatedPassword}});
-            }}
-          >
-            Add as Entry
-          </Button>
-        </View>
+        <PasswordGenerator
+          onAddEntry={(password) => {
+            navigation.navigate('AddEditEntry', { formData: { passwordValue: password } });
+          }}
+          isPro={plan === UserPlan.Pro}
+          navigation={navigation}
+        />
       ) : (
         <FlatList
           data={filteredAndSortedEntries}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
+          ListEmptyComponent={EmptyListComponent}
           contentContainerStyle={
             filteredAndSortedEntries.length === 0
               ? styles.centeredContent
               : styles.listContent
           }
-          ListEmptyComponent={EmptyListComponent}
           keyboardShouldPersistTaps="handled"
         />
       )}
+
       <FAB
         icon="plus"
         style={[
           styles.fab,
-          // Fix: Color properties will be valid after theme.ts fixes.
           {
             backgroundColor: canAddMoreEntries
               ? theme.colors.primary
               : theme.colors.surfaceDisabled,
           },
         ]}
-        // Fix: Color properties will be valid after theme.ts fixes.
         color={
           canAddMoreEntries ? theme.colors.onPrimary : theme.colors.onSurfaceDisabled
         }
@@ -210,7 +193,7 @@ const HomeScreen: React.FC = () => {
       />
       <FAB
         icon="crown"
-        style={[styles.fab, { marginRight: 80, backgroundColor: theme.colors.secondary }]}
+        style={[styles.fab, { marginRight: 75, backgroundColor: theme.colors.gold }]}
         color={theme.colors.onSecondary}
         onPress={() => {
           navigation.navigate('Upgrade');
@@ -232,15 +215,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-  centeredContent: { 
+  centeredContent: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 60, 
+    paddingBottom: 60,
   },
   listContent: {
-    paddingBottom: 80, 
-    paddingHorizontal: 0, 
+    paddingBottom: 80,
+    paddingHorizontal: 0,
   },
   searchbar: {
     marginHorizontal: 16,
@@ -265,7 +248,10 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     elevation: 6,
+    
   },
+
+
 });
 
 export default HomeScreen;

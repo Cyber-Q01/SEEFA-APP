@@ -31,7 +31,10 @@
         "USE_FINGERPRINT",
         "android.permission.USE_BIOMETRIC",
         "android.permission.USE_FINGERPRINT"
-      ]
+      ],
+      "enableProguardInReleaseBuilds": true,
+      "enableShrinkResourcesInReleaseBuilds": true,
+      "extraProguardRules": "-keep class com.seefa.keymanager.** { *; }"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -43,12 +46,14 @@
         {
           "faceIDPermission": "SEEFA uses Face ID or Touch ID to secure your data and provide quick access."
         }
-      ]
+      ],
+      "expo-mail-composer"
     ],
     "extra": {
       "eas": {
         "projectId": "c60efe8c-f56b-4eb8-bd35-12774cb12914"
-      }
+      },
+      "SUPPORT_EMAIL": "seffaspprt@gmail.com"
     },
     "owner": "harbidec"
   }
