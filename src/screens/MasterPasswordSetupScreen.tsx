@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { TextInput } from 'react-native-paper';
@@ -66,18 +65,19 @@ const makeStyles = (theme: AppThemeType) => StyleSheet.create({
   }
 });
 
-
+// MasterPasswordSetupScreen component
 const MasterPasswordSetupScreen: React.FC = () => {
-  const theme = useTheme<AppThemeType>();
+  const theme = useTheme<AppThemeType>(); // Use the theme
   const styles = makeStyles(theme); // Create styles with theme
   const { setMasterPasswordAndInitialize, isLoading: contextIsLoading } = useAppData(); // Renamed isLoading to avoid conflict
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [password, setPassword] = useState(''); // Password state
+  const [confirmPassword, setConfirmPassword] = useState(''); // Confirm password state
+  const [error, setError] = useState<string | null>(null); // Error state
   // Fix: Color property will be valid after theme.ts fixes.
-  const [passwordStrength, setPasswordStrength] = useState({ score: 0, message: '', progress: 0, color: theme.colors.error });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState({ score: 0, message: '', progress: 0, color: theme.colors.error }); // Password strength state
+  const [isSubmitting, setIsSubmitting] = useState(false); // Submitting state
 
+  // Function to validate password strength
   const validatePasswordStrength = (p: string) => {
     let score = 0;
     let progress = 0;
@@ -114,17 +114,20 @@ const MasterPasswordSetupScreen: React.FC = () => {
     setPasswordStrength({ score, message, progress, color });
   };
 
+  // Function to handle password change
   const handlePasswordChange = (text: string) => {
     setPassword(text);
     validatePasswordStrength(text);
     if (error) setError(null);
   };
   
+  // Function to handle confirm password change
   const handleConfirmPasswordChange = (text: string) => {
     setConfirmPassword(text);
     if (error) setError(null);
   };
 
+  // Function to handle submit
   const handleSubmit = async () => {
     setError(null);
     if (!password || !confirmPassword) {

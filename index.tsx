@@ -11,18 +11,22 @@ const WebPlaceholder: React.FC = () => {
   );
 };
 
+// Get the root element from the HTML
 const rootElement = document.getElementById('root');
 if (!rootElement) {
   throw new Error("Could not find root element to mount to");
 }
 
+// Create a root for ReactDOM to render into
 const root = ReactDOM.createRoot(rootElement);
 root.render(
+  // Enable React strict mode for development
   <React.StrictMode>
     <WebPlaceholder />
   </React.StrictMode>
 );
 
+// Log information about the web entry point
 console.info(
   "This is the web entry point for the SEEFA Expo React Native application. " +
   "The main application is designed for mobile (iOS/Android). " +

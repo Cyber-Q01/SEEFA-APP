@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Optimizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .image-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .image-preview img {
+            max-width: 100%;
+            max-height: 300px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input[type="range"] {
+            width: 200px;
+        }
+        .file-info {
+            font-size: 14px;
+            color: #666;
+        }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        a:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Optimizer for SEEFA App</h1>
+    <p>Use this tool to optimize your app images and reduce APK size.</p>
+    
+    <div class="container">
+        <div>
+            <h2>Icon (1024x1024)</h2>
+            <input type="file" id="iconInput" accept="image/*">
+            <div id="iconPreview" class="image-preview" style="display: none;">
+                <div class="controls">
+                    <label for="iconQuality">Quality:</label>
+                    <input type="range" id="iconQuality" min="10" max="100" value="80">
+                    <span id="iconQualityValue">80%</span>
+                    <button id="optimizeIcon">Optimize</button>
+                </div>
+                <div class="file-info">
+                    Original: <span id="iconOriginalSize">0</span> KB | 
+                    Optimized: <span id="iconOptimizedSize">0</span> KB |
+                    Reduction: <span id="iconReduction">0</span>%
+                </div>
+                <img id="iconImage" src="" alt="Icon Preview">
+                <a id="iconDownload" download="icon.png" href="#">Download Optimized Icon</a>
+            </div>
+        </div>
+
+        <div>
+            <h2>Adaptive Icon (1024x1024)</h2>
+            <input type="file" id="adaptiveIconInput" accept="image/*">
+            <div id="adaptiveIconPreview" class="image-preview" style="display: none;">
+                <div class="controls">
+                    <label for="adaptiveIconQuality">Quality:</label>
+                    <input type="range" id="adaptiveIconQuality" min="10" max="100" value="80">
+                    <span id="adaptiveIconQualityValue">80%</span>
+                    <button id="optimizeAdaptiveIcon">Optimize</button>
+                </div>
+                <div class="file-info">
+                    Original: <span id="adaptiveIconOriginalSize">0</span> KB | 
+                    Optimized: <span id="adaptiveIconOptimizedSize">0</span> KB |
+                    Reduction: <span id="adaptiveIconReduction">0</span>%
+                </div>
+                <img id="adaptiveIconImage" src="" alt="Adaptive Icon Preview">
+                <a id="adaptiveIconDownload" download="adaptive-icon.png" href="#">Download Optimized Adaptive Icon</a>
+            </div>
+        </div>
+
+        <div>
+            <h2>Splash Screen (1242x2436)</h2>
+            <input type="file" id="splashInput" accept="image/*">
+            <div id="splashPreview" class="image-preview" style="display: none;">
+                <div class="controls">
+                    <label for="splashQuality">Quality:</label>
+                    <input type="range" id="splashQuality" min="10" max="100" value="80">
+                    <span id="splashQualityValue">80%</span>
+                    <button id="optimizeSplash">Optimize</button>
+                </div>
+                <div class="file-info">
+                    Original: <span id="splashOriginalSize">0</span> KB | 
+                    Optimized: <span id="splashOptimizedSize">0</span> KB |
+                    Reduction: <span id="splashReduction">0</span>%
+                </div>
+                <img id="splashImage" src="" alt="Splash Preview">
+                <a id="splashDownload" download="splash.png" href="#">Download Optimized Splash</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Helper function to handle file input changes
+        function handleFileInput(inputId, previewId, imageId, file) {
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+            const image = document.getElementById(imageId);
+            
+            input.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        image.src = event.target.result;
+                        preview.style.display = 'flex';
+                        
+                        // Display original file size
+                        const originalSizeKB = Math.round(file.size / 1024);
+                        document.getElementById(inputId.replace('Input', 'OriginalSize')).textContent = originalSizeKB;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Helper function to optimize images
+        function setupOptimization(qualityId, qualityValueId, optimizeId, imageId, downloadId, originalSizeId, optimizedSizeId, reductionId) {
+            const qualitySlider = document.getElementById(qualityId);
+            const qualityValue = document.getElementById(qualityValueId);
+            const optimizeButton = document.getElementById(optimizeId);
+            const image = document.getElementById(imageId);
+            const download = document.getElementById(downloadId);
+            
+            // Update quality value display
+            qualitySlider.addEventListener('input', function() {
+                qualityValue.textContent = this.value + '%';
+            });
+            
+            // Optimize image
+            optimizeButton.addEventListener('click', function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Create a new image to get the natural dimensions
+                const img = new Image();
+                img.onload = function() {
+                    // Set canvas dimensions to match the image
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
+                    
+                    // Draw the image on the canvas
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // Convert canvas to optimized data URL
+                    const quality = qualitySlider.value / 100;
+                    const optimizedDataURL = canvas.toDataURL('image/png', quality);
+                    
+                    // Update the image and download link
+                    image.src = optimizedDataURL;
+                    download.href = optimizedDataURL;
+                    
+                    // Calculate and display size reduction
+                    const originalSizeKB = parseInt(document.getElementById(originalSizeId).textContent);
+                    const optimizedSizeKB = Math.round((optimizedDataURL.length * 3/4) / 1024); // Approximate size calculation
+                    const reduction = Math.round(((originalSizeKB - optimizedSizeKB) / originalSizeKB) * 100);
+                    
+                    document.getElementById(optimizedSizeId).textContent = optimizedSizeKB;
+                    document.getElementById(reductionId).textContent = reduction;
+                };
+                img.src = image.src;
+            });
+        }
+
+        // Initialize file inputs
+        handleFileInput('iconInput', 'iconPreview', 'iconImage');
+        handleFileInput('adaptiveIconInput', 'adaptiveIconPreview', 'adaptiveIconImage');
+        handleFileInput('splashInput', 'splashPreview', 'splashImage');
+        
+        // Initialize optimization controls
+        setupOptimization(
+            'iconQuality', 'iconQualityValue', 'optimizeIcon', 
+            'iconImage', 'iconDownload', 
+            'iconOriginalSize', 'iconOptimizedSize', 'iconReduction'
+        );
+        
+        setupOptimization(
+            'adaptiveIconQuality', 'adaptiveIconQualityValue', 'optimizeAdaptiveIcon', 
+            'adaptiveIconImage', 'adaptiveIconDownload', 
+            'adaptiveIconOriginalSize', 'adaptiveIconOptimizedSize', 'adaptiveIconReduction'
+        );
+        
+        setupOptimization(
+            'splashQuality', 'splashQualityValue', 'optimizeSplash', 
+            'splashImage', 'splashDownload', 
+            'splashOriginalSize', 'splashOptimizedSize', 'splashReduction'
+        );
+    </script>
+</body>
+</html>

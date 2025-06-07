@@ -18,7 +18,7 @@ const Web3KeyCard: React.FC<Web3KeyCardProps> = ({ entry }) => {
 
   const handleCopy = (value: string) => {
     navigator.clipboard.writeText(value).catch(err => {
-      console.error('Failed to copy: ', err);
+     
       alert('Failed to copy to clipboard!');
     });
   };

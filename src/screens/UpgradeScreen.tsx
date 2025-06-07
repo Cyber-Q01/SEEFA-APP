@@ -13,10 +13,12 @@ import { APP_NAME } from '../config/constants';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { AppThemeType } from '../config/theme';
 
-const PAYMENT_AMOUNT = 4800;
+const PAYMENT_AMOUNT = 4800; // Amount to be paid for the upgrade
 
+// Define the type for the navigation prop
 type UpgradeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Upgrade'>;
 
+// Styles for the component
 const makeStyles = (theme: AppThemeType) => {
   const styles = StyleSheet.create({
     container: {
@@ -72,18 +74,20 @@ const makeStyles = (theme: AppThemeType) => {
   return styles;
 };
 
-
+// UpgradeScreen component
 const UpgradeScreen: React.FC = () => {
-  const theme = useTheme<AppThemeType>();
-  const styles = makeStyles(theme);
-  const navigation = useNavigation<UpgradeScreenNavigationProp>();
-  const { plan, upgradeToPro, isLoading: contextLoading } = useAppData();
+  const theme = useTheme<AppThemeType>(); // Use the theme
+  const styles = makeStyles(theme); // Create the styles
+  const navigation = useNavigation<UpgradeScreenNavigationProp>(); // Use the navigation hook
+  const { plan, isLoading: contextLoading } = useAppData(); // Get app data from context
 
-  const installationId = Constants.installationId?.substring(0, 6) || 'guest';
-  const formattedAppName = APP_NAME.toLowerCase();
-  const userEmail = `user_${installationId}@${formattedAppName}.app`;
+  const installationId = Constants.installationId?.substring(0, 6) || 'guest'; // Get installation ID
+  const formattedAppName = APP_NAME.toLowerCase(); // Format app name
+  const userEmail = `user_${installationId}@${formattedAppName}.app`; // Create user email
 
+  // Render the content based on the user's plan and loading state
   const renderContent = () => {
+    // Show loading indicator while app data is loading
     if (contextLoading) {
       return (
         <View style={[styles.centered, { backgroundColor: theme.colors.background }]}>
@@ -92,6 +96,7 @@ const UpgradeScreen: React.FC = () => {
       );
     }
 
+    // If user is already a Pro user, show the Pro user screen
     if (plan === UserPlan.Pro) {
       return (
         <View style={[styles.container, styles.centered, { backgroundColor: theme.colors.background }]}>
@@ -105,6 +110,7 @@ const UpgradeScreen: React.FC = () => {
       );
     }
 
+    // Show the upgrade screen
     return (
       <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]} contentContainerStyle={styles.scrollContainer}>
         <Card style={[styles.card, { backgroundColor: theme.colors.surface }]}>
@@ -168,8 +174,10 @@ const UpgradeScreen: React.FC = () => {
     );
   };
 
+  // Function to start the payment process
   const startPayment = () => {
-    const paymentLink = 'https://paystack.shop/pay/otkxq17j6g'; // Paste the generated payment link here
+    const paymentLink = 'https://paystack.shop/pay/otkxq17j6g'; // Payment link
+    // Open the payment link in the browser
     if (paymentLink.trim() !== '') {
       Linking.openURL(paymentLink);
     } else {
@@ -177,7 +185,7 @@ const UpgradeScreen: React.FC = () => {
     }
   };
 
-
+  // Render the component
   return (
     <>
       {renderContent()}
